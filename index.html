@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d6efd"/>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <title>AdivinhaX</title>
+</head>
+<body>
+  <div id="app">
+    <div id="start-screen">
+      <h1>AdivinhaX</h1>
+      <button onclick="startGame()">Começar</button>
+    </div>
+    <div id="game-screen" style="display:none;">
+      <h2>Nível: <span id="level">1</span></h2>
+      <p>Você tem <span id="time">10</span> segundos</p>
+      <p>Adivinhe o número entre 1 e <span id="max">10</span></p>
+      <input type="number" id="guess" placeholder="Digite seu palpite" />
+      <button onclick="checkGuess()">Enviar</button>
+      <p id="feedback"></p>
+      <p>Pontuação: <span id="score">0</span></p>
+    </div>
+    <div id="game-over" style="display:none;">
+      <h2>Você perdeu!</h2>
+      <p>Sua pontuação: <span id="final-score"></span></p>
+      <button onclick="restartGame()">Tentar de novo</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
