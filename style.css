@@ -1,26 +1,42 @@
-
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: #f4f4f4;
   margin: 0;
-  padding: 0;
-}
-#app {
-  padding: 20px;
-}
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background: #0d6efd;
+  background: #111;
   color: white;
-  border: none;
-  border-radius: 8px;
-  margin: 10px;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
-input {
-  padding: 10px;
-  font-size: 16px;
-  width: 80%;
-  margin: 10px 0;
+.container {
+  text-align: center;
+}
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.key {
+  background: #444;
+  color: white;
+  font-size: 24px;
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px #222;
+  transition: all 0.2s;
+}
+.key:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px #111;
+}
+#display {
+  font-size: 48px;
+  margin-top: 20px;
+}
+#timer {
+  font-size: 28px;
+  color: #0f0;
 }

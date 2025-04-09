@@ -1,72 +1,38 @@
+let secret = Math.floor(Math.random() * 100) + 1;
+let guess = "";
+let timer = 60;
+let interval = setInterval(() => {
+  timer--;
+  document.getElementById("timer").textContent = timer;
+  if (timer <= 0) resetGame("Tempo esgotado!");
+}, 1000);
 
-let level = 1;
-let max = 10;
-let number = 0;
-let score = 0;
-let timer;
-let timeLeft = 10;
-const audio = new Audio('success.mp3');
-
-function startGame() {
-  document.getElementById("start-screen").style.display = "none";
-  document.getElementById("game-screen").style.display = "block";
-  nextLevel();
-}
-
-function nextLevel() {
-  number = Math.floor(Math.random() * max) + 1;
-  document.getElementById("level").textContent = level;
-  document.getElementById("max").textContent = max;
-  document.getElementById("guess").value = "";
-  document.getElementById("feedback").textContent = "";
-  startTimer();
-}
-
-function startTimer() {
-  clearInterval(timer);
-  timeLeft = 10;
-  document.getElementById("time").textContent = timeLeft;
-  timer = setInterval(() => {
-    timeLeft--;
-    document.getElementById("time").textContent = timeLeft;
-    if (timeLeft === 0) {
-      endGame();
+document.querySelectorAll(".key").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.getElementById("click-sound").play();
+    const val = btn.textContent;
+    if (val === "←") {
+      guess = guess.slice(0, -1);
+    } else if (val === "OK") {
+      checkGuess();
+    } else {
+      if (guess.length < 3) guess += val;
     }
-  }, 1000);
-}
+    document.getElementById("display").textContent = guess || "_";
+  });
+});
 
 function checkGuess() {
-  const guess = parseInt(document.getElementById("guess").value);
-  if (guess === number) {
-    audio.play();
-    score += 10;
-    level++;
-    max += 5;
-    document.getElementById("score").textContent = score;
-    nextLevel();
+  const num = parseInt(guess);
+  if (num === secret) {
+    resetGame("Você acertou!");
   } else {
-    document.getElementById("feedback").textContent = "Tente novamente!";
+    resetGame("Errou! O número era " + secret);
   }
 }
 
-function endGame() {
-  clearInterval(timer);
-  document.getElementById("game-screen").style.display = "none";
-  document.getElementById("game-over").style.display = "block";
-  document.getElementById("final-score").textContent = score;
+function resetGame(msg) {
+  clearInterval(interval);
+  document.getElementById("status").textContent = msg;
+  setTimeout(() => location.reload(), 3000);
 }
-
-function restartGame() {
-  score = 0;
-  level = 1;
-  max = 10;
-  document.getElementById("score").textContent = score;
-  document.getElementById("game-over").style.display = "none";
-  document.getElementById("game-screen").style.display = "block";
-  nextLevel();
-}
-
-// PWA install prompt
-window.addEventListener('beforeinstallprompt', e => {
-  e.prompt();
-});
